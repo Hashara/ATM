@@ -7,16 +7,11 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.sql.SQLException;
 
 public class card extends Application{
 
@@ -76,7 +71,7 @@ public class card extends Application{
         BorderPane bottomBorderPane = new BorderPane();
         BottomKeyPad(bottomBorderPane,pane);
 
-        BottomController(bottomBorderPane);
+        BottomController(bottomBorderPane,pane);
         pane.setBottom(bottomBorderPane);
 
         panes[1] = bottomBorderPane;
@@ -150,6 +145,14 @@ public class card extends Application{
         DummyButton1.setPrefSize(60,60);
         bottomKeyPad.add(DummyButton1,3,4);
 
+
+        keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
+
+
+
+    }
+
+    private void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2,Button Button3, Button Button4, Button Button5,Button Button6, Button Button7, Button Button8,Button Button9){
         Button0.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -229,14 +232,9 @@ public class card extends Application{
                 InitialDisplay(parentPane);
             }
         });
-
-
-
-
     }
 
-
-    private void BottomController(BorderPane pane){
+    private void BottomController(BorderPane pane,BorderPane parentPane){
         GridPane bottomController = new GridPane();
         pane.setRight(bottomController);
 
@@ -260,8 +258,37 @@ public class card extends Application{
         clear.setPrefSize(180,60);
         bottomController.add(clear,4,3);
 
+        BottomControllerKeys(parentPane,enter, cancel, clear);
+    }
+
+
+    private void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear){
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber("");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        clear.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber("");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        enter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber("hi");
+                InitialDisplay(parentPane);
+            }
+        });
 
     }
+
 
     private void InitialDisplay(BorderPane pane){
 
