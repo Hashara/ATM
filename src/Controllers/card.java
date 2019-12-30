@@ -21,14 +21,24 @@ import java.sql.SQLException;
 public class card extends Application{
 
     private Pane panes[] =new Pane[2];
+    private String cardNumber = "";
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("");
 
         BorderPane pane = new BorderPane();
-        addUIControls(pane, primaryStage);
-        BottomPane(pane, primaryStage);
+        addUIControls(pane);
+        InitialDisplay(pane);
+        BottomPane(pane);
 
         Scene scene = new Scene(pane);
 
@@ -42,7 +52,7 @@ public class card extends Application{
         primaryStage.show();
     }
 
-    private void addUIControls(BorderPane pane, Stage primaryStage){
+    private void addUIControls(BorderPane pane){
 
         //Top pane
         HBox topAnchorPane = new HBox();
@@ -60,13 +70,13 @@ public class card extends Application{
 
     }
 
-    private void BottomPane(BorderPane pane, Stage primaryStage){
+    private void BottomPane(BorderPane pane){
 
 
         BorderPane bottomBorderPane = new BorderPane();
-        BottomKeyPad(bottomBorderPane,primaryStage);
+        BottomKeyPad(bottomBorderPane,pane);
 
-        BottomController(bottomBorderPane,primaryStage);
+        BottomController(bottomBorderPane);
         pane.setBottom(bottomBorderPane);
 
         panes[1] = bottomBorderPane;
@@ -76,7 +86,7 @@ public class card extends Application{
 
     }
 
-    private void BottomKeyPad(BorderPane pane, Stage primaryStage){
+    private void BottomKeyPad(BorderPane pane,BorderPane parentPane){
         GridPane bottomKeyPad = new GridPane();
         pane.setLeft(bottomKeyPad);
         //Key Pad
@@ -140,10 +150,93 @@ public class card extends Application{
         DummyButton1.setPrefSize(60,60);
         bottomKeyPad.add(DummyButton1,3,4);
 
+        Button0.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"0");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"1");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"2");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"3");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"4");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button5.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"5");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"6");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"7");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button8.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"8");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button9.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setCardNumber(getCardNumber()+"9");
+                InitialDisplay(parentPane);
+            }
+        });
+
+
+
+
     }
 
 
-    private void BottomController(BorderPane pane, Stage primaryStage){
+    private void BottomController(BorderPane pane){
         GridPane bottomController = new GridPane();
         pane.setRight(bottomController);
 
@@ -170,7 +263,32 @@ public class card extends Application{
 
     }
 
-    private void CenterDisplay(){
+    private void InitialDisplay(BorderPane pane){
+
+        Alert a = new Alert(Alert.AlertType.ERROR);
+
+        if (getCardNumber().length()>16){
+            a.setContentText("Invalid card length");
+            a.show();
+            setCardNumber("");
+        }
+
+        GridPane display = new GridPane();
+        pane.setCenter(display);
+
+        display.setHgap(8);
+        display.setVgap(8);
+        display.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
+        //label
+        Label headText = new Label("Enter the card number");
+        display.add(headText,1,0,4,1);
+
+        Label cardNumber = new Label(getCardNumber());
+        display.add(cardNumber,1,2,4,1);
+
+
+
 
     }
 }
