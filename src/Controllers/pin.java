@@ -1,5 +1,7 @@
 package Controllers;
 
+import Models.debit_cardModel;
+import Objects.ATMCard;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -14,9 +16,11 @@ public class pin extends card {
     private BorderPane pane;
     private String pinNumber = "";
     private String stars = "";
+    private ATMCard atmcard;
 
-    public pin(BorderPane pane) {
+    public pin(BorderPane pane, ATMCard atmCard) {
         this.pane = pane;
+        this.atmcard = atmCard;
     }
 
     public String getPinNumber() {
@@ -184,11 +188,30 @@ public class pin extends card {
         enter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                pin pinui = new pin(parentPane);
-//                pinui.BottomControllerKeys(parentPane,enter, cancel, clear);
-//                pinui. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
-//                setCardNumber("hi");
-//                InitialDisplay(parentPane);
+                if (getPinNumber().length()==4){
+//                    ATMCard atmcard = new ATMCard();
+                    atmcard.setPinNumber(getPinNumber());
+
+
+                    String result1 = model.IsPinNumberValid(atmcard);
+                    System.out.println(result1);
+                    if(result1.equals("Invalid pin Number!")){
+                        setPinNumber("");
+                        InitialDisplay(parentPane);
+                    }
+//                    System.out.println(result =="success !");
+//                    if ( result1.equals("success !")){
+//                        pin pinUi = new pin(parentPane);
+//                        pinUi.InitialDisplay(parentPane);
+//                        pinUi.BottomControllerKeys(parentPane,enter, cancel, clear);
+//                        pinUi. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
+//                    }else{
+//                        Alert a = new Alert(Alert.AlertType.ERROR);
+//                        a.setContentText(result);
+//                        a.show();
+//                        setCardNumber("");
+//                    }
+                }
             }
         });
 

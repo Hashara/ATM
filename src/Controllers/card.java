@@ -29,7 +29,8 @@ public class card extends Application{
     Button Button7 = new Button("7");
     Button Button8 = new Button("8");
     Button Button9 = new Button("9");
-
+    ATMCard atmcard = new ATMCard();
+    debit_cardModel model = new debit_cardModel();
 
     public String getCardNumber() {
         return cardNumber;
@@ -297,7 +298,7 @@ public class card extends Application{
             public void handle(ActionEvent event) {
 
                 if (getCardNumber().length()==16){
-                    ATMCard atmcard = new ATMCard();
+
                     atmcard.setCardNumber(getCardNumber());
 
                     debit_cardModel model = new debit_cardModel();
@@ -305,7 +306,7 @@ public class card extends Application{
                     System.out.println(result);
                     System.out.println(result =="success !");
                     if ( result.equals("success !")){
-                        pin pinUi = new pin(parentPane);
+                        pin pinUi = new pin(parentPane, atmcard);
                         pinUi.InitialDisplay(parentPane);
                         pinUi.BottomControllerKeys(parentPane,enter, cancel, clear);
                         pinUi. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
