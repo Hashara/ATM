@@ -1,5 +1,7 @@
 package Controllers;
 
+import Models.debit_cardModel;
+import Objects.ATMCard;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -293,12 +295,27 @@ public class card extends Application{
         enter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                pin pinui = new pin(parentPane);
-                pinui.InitialDisplay(parentPane);
-                pinui.BottomControllerKeys(parentPane,enter, cancel, clear);
-                pinui. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
-//                setCardNumber("hi");
 
+                if (getCardNumber().length()==16){
+                    ATMCard atmcard = new ATMCard();
+                    atmcard.setCardNumber(getCardNumber());
+
+                    debit_cardModel model = new debit_cardModel();
+                    String result = model.IsCardNumberValid(atmcard);
+                    System.out.println(result);
+                    System.out.println(result =="success !");
+                    if ( result.equals("success !")){
+                        pin pinUi = new pin(parentPane);
+                        pinUi.InitialDisplay(parentPane);
+                        pinUi.BottomControllerKeys(parentPane,enter, cancel, clear);
+                        pinUi. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
+                    }else{
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+                        a.setContentText(result);
+                        a.show();
+                        setCardNumber("");
+                    }
+                }
             }
         });
 
