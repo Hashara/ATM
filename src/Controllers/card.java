@@ -29,6 +29,10 @@ public class card extends Application{
     Button Button7 = new Button("7");
     Button Button8 = new Button("8");
     Button Button9 = new Button("9");
+
+    Button leftButton = new Button();
+    Button rightButton = new Button();
+
     ATMCard atmcard = new ATMCard();
     debit_cardModel model = new debit_cardModel();
 
@@ -48,6 +52,8 @@ public class card extends Application{
         addUIControls(pane);
         InitialDisplay(pane);
         BottomPane(pane);
+        LeftSidePane(pane);
+        RightSidePane(pane);
 
         Scene scene = new Scene(pane);
 
@@ -349,6 +355,37 @@ public class card extends Application{
 
 
 
+
+    }
+
+    public void LeftSidePane(BorderPane pane){
+
+        GridPane g = new GridPane();
+        pane.setLeft(g);
+
+        leftButton.setDefaultButton(true);
+        leftButton.setPrefSize(180,60);
+        g.add(leftButton,1,4);
+
+        LeftSideButtonController( pane, leftButton);
+    }
+
+    public void RightSidePane(BorderPane pane){
+        GridPane g1 = new GridPane();
+        pane.setRight(g1);
+
+        rightButton.setDefaultButton(true);
+        rightButton.setPrefSize(180,60);
+        g1.add(rightButton,1,4);
+
+        RightSideButtonController( pane, rightButton);
+    }
+
+    public void LeftSideButtonController(BorderPane parentPane,Button leftButton){
+
+    }
+
+    public void RightSideButtonController(BorderPane parentPane,Button rightButton){
 
     }
 }

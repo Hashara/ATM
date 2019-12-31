@@ -17,6 +17,7 @@ public class pin extends card {
     private String pinNumber = "";
     private String stars = "";
     private ATMCard atmcard;
+    private Label alertLabel;
 
     public pin(BorderPane pane, ATMCard atmCard) {
         this.pane = pane;
@@ -159,8 +160,7 @@ public class pin extends card {
         display.add(starText,1,2,4,1);
 
 //        Label pinNumber = new Label(getPinNumber());
-//        display.add(pinNumber,1,3,4,1);
-
+//        display.add(pinNumber,1,3,4,1
 
 
 
@@ -198,19 +198,14 @@ public class pin extends card {
                     if(result1.equals("Invalid pin Number!")){
                         setPinNumber("");
                         InitialDisplay(parentPane);
+                    }else{
+                        menu Menu = new menu(parentPane,atmcard);
+                        Menu.InitialDisplay(parentPane);
+                        Menu.LeftSidePane(parentPane);
+                        Menu.RightSidePane(parentPane);
+
                     }
-//                    System.out.println(result =="success !");
-//                    if ( result1.equals("success !")){
-//                        pin pinUi = new pin(parentPane);
-//                        pinUi.InitialDisplay(parentPane);
-//                        pinUi.BottomControllerKeys(parentPane,enter, cancel, clear);
-//                        pinUi. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
-//                    }else{
-//                        Alert a = new Alert(Alert.AlertType.ERROR);
-//                        a.setContentText(result);
-//                        a.show();
-//                        setCardNumber("");
-//                    }
+
                 }
             }
         });
