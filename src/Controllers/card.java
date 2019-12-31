@@ -17,6 +17,17 @@ public class card extends Application{
 
     private Pane panes[] =new Pane[2];
     private String cardNumber = "";
+    Button Button0 = new Button("0");
+    Button Button1 = new Button("1");
+    Button Button2 = new Button("2");
+    Button Button3 = new Button("3");
+    Button Button4 = new Button("4");
+    Button Button5 = new Button("5");
+    Button Button6 = new Button("6");
+    Button Button7 = new Button("7");
+    Button Button8 = new Button("8");
+    Button Button9 = new Button("9");
+
 
     public String getCardNumber() {
         return cardNumber;
@@ -85,47 +96,47 @@ public class card extends Application{
         GridPane bottomKeyPad = new GridPane();
         pane.setLeft(bottomKeyPad);
         //Key Pad
-        Button Button1 = new Button("1");
+//        Button Button1 = new Button("1");
         Button1.setDefaultButton(true);
         Button1.setPrefSize(60,60);
         bottomKeyPad.add(Button1,1,1);
 
-        Button Button2 = new Button("2");
+//        Button Button2 = new Button("2");
         Button2.setDefaultButton(true);
         Button2.setPrefSize(60,60);
         bottomKeyPad.add(Button2,2,1);
 
-        Button Button3 = new Button("3");
+//        Button Button3 = new Button("3");
         Button3.setDefaultButton(true);
         Button3.setPrefSize(60,60);
         bottomKeyPad.add(Button3,3,1);
 
-        Button Button4 = new Button("4");
+//        Button Button4 = new Button("4");
         Button4.setDefaultButton(true);
         Button4.setPrefSize(60,60);
         bottomKeyPad.add(Button4,1,2);
 
-        Button Button5 = new Button("5");
+//        Button Button5 = new Button("5");
         Button5.setDefaultButton(true);
         Button5.setPrefSize(60,60);
         bottomKeyPad.add(Button5,2,2);
 
-        Button Button6 = new Button("6");
+//        Button Button6 = new Button("6");
         Button6.setDefaultButton(true);
         Button6.setPrefSize(60,60);
         bottomKeyPad.add(Button6,3,2);
 
-        Button Button7 = new Button("7");
+//        Button Button7 = new Button("7");
         Button7.setDefaultButton(true);
         Button7.setPrefSize(60,60);
         bottomKeyPad.add(Button7,1,3);
 
-        Button Button8 = new Button("8");
+//        Button Button8 = new Button("8");
         Button8.setDefaultButton(true);
         Button8.setPrefSize(60,60);
         bottomKeyPad.add(Button8,2,3);
 
-        Button Button9 = new Button("9");
+//        Button Button9 = new Button("9");
         Button9.setDefaultButton(true);
         Button9.setPrefSize(60,60);
         bottomKeyPad.add(Button9,3,3);
@@ -135,7 +146,7 @@ public class card extends Application{
         DummyButton.setPrefSize(60,60);
         bottomKeyPad.add(DummyButton,1,4);
 
-        Button Button0 = new Button("0");
+//        Button Button0 = new Button("0");
         Button0.setDefaultButton(true);
         Button0.setPrefSize(60,60);
         bottomKeyPad.add(Button0,2,4);
@@ -152,7 +163,7 @@ public class card extends Application{
 
     }
 
-    private void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2,Button Button3, Button Button4, Button Button5,Button Button6, Button Button7, Button Button8,Button Button9){
+    public void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2,Button Button3, Button Button4, Button Button5,Button Button6, Button Button7, Button Button8,Button Button9){
         Button0.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -262,7 +273,7 @@ public class card extends Application{
     }
 
 
-    private void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear){
+    public void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear){
         cancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -282,15 +293,19 @@ public class card extends Application{
         enter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setCardNumber("hi");
-                InitialDisplay(parentPane);
+                pin pinui = new pin(parentPane);
+                pinui.InitialDisplay(parentPane);
+                pinui.BottomControllerKeys(parentPane,enter, cancel, clear);
+                pinui. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
+//                setCardNumber("hi");
+
             }
         });
 
     }
 
 
-    private void InitialDisplay(BorderPane pane){
+    public void InitialDisplay(BorderPane pane){
 
         Alert a = new Alert(Alert.AlertType.ERROR);
 
