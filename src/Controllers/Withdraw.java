@@ -1,8 +1,10 @@
 package Controllers;
 
+import Models.atm_withdrawModel;
 import Models.debit_cardModel;
 import Objects.ATMCard;
 import Objects.Account;
+import Objects.WithdrawObject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -19,6 +21,7 @@ public class Withdraw extends menu{
     private Account account;
     public ATMCard atmCard;
     private String amount = "";
+    private float FlaotAmount;
 
     public Withdraw(BorderPane pane, ATMCard atmCard, Account account) {
         super(pane, atmCard);
@@ -32,6 +35,12 @@ public class Withdraw extends menu{
 
     public void setAmount(String amount) {
         this.amount = amount;
+        FlaotAmount = Float.parseFloat(getAmount());
+        if (FlaotAmount>50000){
+            this.amount = "";
+            FlaotAmount = 0;
+        }
+//        System.out.println(FlaotAmount);
     }
 
     @Override
@@ -45,7 +54,7 @@ public class Withdraw extends menu{
 
 
 
-        Label WithdrawLabel = new Label("RS" + getAmount());
+        Label WithdrawLabel = new Label("RS " + getAmount()+".00");
         WithdrawLabel.setMinSize(360,60);
         display.add(WithdrawLabel,1,1);
 
@@ -229,7 +238,21 @@ public class Withdraw extends menu{
 
     @Override
     public void RightSideButtonController(BorderPane parentPane,Button rightButton){
+        rightButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+//                System.out.println("right");
 
+                WithdrawObject wobj = new WithdrawObject();
+                wobj.setCardNumber(atmCard.getCardNumber());
+                wobj.setAmount(amount);
+
+                atm_withdrawModel model = new atm_withdrawModel();
+                String res = model.WithdrawMoney(wobj);
+                System.out.println(res);
+
+            }
+        });
     }
     @Override
     public void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2, Button Button3, Button Button4, Button Button5, Button Button6, Button Button7, Button Button8, Button Button9) {

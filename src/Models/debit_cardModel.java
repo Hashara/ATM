@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Objects.ATMCard;
-import DB.Database;
 
 
 public class debit_cardModel {
