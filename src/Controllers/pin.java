@@ -199,6 +199,8 @@ public class pin extends card {
                         setPinNumber("");
                         InitialDisplay(parentPane);
                     }else{
+                        atmcard.setAccountNumber(model.getAccountNumber(atmcard));
+//                        System.out.println(atmcard.getAccountNumber());
                         menu Menu = new menu(parentPane,atmcard);
                         Menu.InitialDisplay(parentPane);
                         Menu.LeftSidePane(parentPane);

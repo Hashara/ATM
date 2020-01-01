@@ -1,24 +1,25 @@
 package Controllers;
 
+import Models.savings_accountModel;
 import Objects.ATMCard;
+import Objects.Account;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-
-import static javafx.geometry.Pos.CENTER_LEFT;
-import static javafx.geometry.Pos.CENTER_RIGHT;
 
 public class menu extends pin {
-//    private ATMCard atmcard;
-//
+
+    private Account account = new Account();
+    private savings_accountModel model = new savings_accountModel();
+    private ATMCard atmCard;
+
     public menu(BorderPane pane, ATMCard atmCard) {
         super(pane, atmCard);
+        this.atmCard = atmCard;
+        account.setAccountNum(atmCard.getAccountNumber());
     }
 
 
@@ -26,7 +27,6 @@ public class menu extends pin {
     public void InitialDisplay(BorderPane pane){
         GridPane display = new GridPane();
         pane.setCenter(display);
-
 
 
         Label balanceLabel = new Label("Check Balance");
@@ -47,7 +47,7 @@ public class menu extends pin {
 
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(180,60);
-        g.add(leftButton,1,4);
+        g.add(leftButton,1,10);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -59,7 +59,7 @@ public class menu extends pin {
 
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(180,60);
-        g1.add(rightButton,1,4);
+        g1.add(rightButton,1,10);
 
         RightSideButtonController( pane, rightButton);
     }
@@ -70,6 +70,14 @@ public class menu extends pin {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("left");
+
+                account.setBalance(model.getBalance(account));
+
+                Balance balance =  new Balance( parentPane,atmCard,  account);
+                balance.InitialDisplay(parentPane);
+                balance.LeftSidePane(parentPane);
+                balance.RightSidePane(parentPane);
+
             }
         });
     }

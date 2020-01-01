@@ -365,7 +365,7 @@ public class card extends Application{
 
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(180,60);
-        g.add(leftButton,1,4);
+        g.add(leftButton,1,10);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -376,7 +376,7 @@ public class card extends Application{
 
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(180,60);
-        g1.add(rightButton,1,4);
+        g1.add(rightButton,1,10);
 
         RightSideButtonController( pane, rightButton);
     }

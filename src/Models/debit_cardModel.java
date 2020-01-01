@@ -39,10 +39,27 @@ public class debit_cardModel {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1,atm.getCardNumber());
             stmt.setString(2,atm.getPinNumber());
-//            System.out.printf(stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 result = rs.getString(1);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getAccountNumber(ATMCard atm){
+        connection = DB.Database.getConnection();
+        String result = "Error! Try again.";
+        try {
+            String sql = "SELECT `AccountNumber` FROM `debit_card` WHERE `CardNumber`=?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1,atm.getCardNumber());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                result = rs.getString(1);
+//                atm.setAccountNumber(result);
             }
         }catch (SQLException e){
             e.printStackTrace();
