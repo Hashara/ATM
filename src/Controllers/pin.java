@@ -1,10 +1,8 @@
 package Controllers;
 
-import Models.debit_cardModel;
 import Objects.ATMCard;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -17,7 +15,7 @@ public class pin extends card {
     private String pinNumber = "";
     private String stars = "";
     private ATMCard atmcard;
-    private Label alertLabel;
+    private String pinErrorText = "";
 
     public pin(BorderPane pane, ATMCard atmCard) {
         this.pane = pane;
@@ -38,6 +36,14 @@ public class pin extends card {
 
     public void setStars(String stars) {
         this.stars = stars;
+    }
+
+    public String getPinErrorText() {
+        return pinErrorText;
+    }
+
+    public void setPinErrorText(String pinErrorText) {
+        this.pinErrorText = pinErrorText;
     }
 
     @Override
@@ -136,11 +142,8 @@ public class pin extends card {
     @Override
     public void InitialDisplay(BorderPane pane){
 
-        Alert a = new Alert(Alert.AlertType.ERROR);
-
         if (getPinNumber().length()>4){
-            a.setContentText("Invalid pin length");
-            a.show();
+            setPinErrorText("Invalid pin length");
             setPinNumber("");
             setStars("");
         }
@@ -159,8 +162,8 @@ public class pin extends card {
         Label starText = new Label(getStars());
         display.add(starText,1,2,4,1);
 
-//        Label pinNumber = new Label(getPinNumber());
-//        display.add(pinNumber,1,3,4,1
+        Label errorLabel = new Label(getPinErrorText());
+        display.add(errorLabel,1,4,4,1);
 
 
 
@@ -173,6 +176,7 @@ public class pin extends card {
             public void handle(ActionEvent event) {
 
                 setPinNumber("");
+                setStars("");
                 InitialDisplay(parentPane);
             }
         });
@@ -181,6 +185,7 @@ public class pin extends card {
             @Override
             public void handle(ActionEvent event) {
                 setPinNumber("");
+                setStars("");
                 InitialDisplay(parentPane);
             }
         });
@@ -195,8 +200,11 @@ public class pin extends card {
 
                     String result1 = model.IsPinNumberValid(atmcard);
                     System.out.println(result1);
+                    setPinErrorText(result1);
                     if(result1.equals("Invalid pin Number!")){
                         setPinNumber("");
+                        setStars("");
+                        System.out.println("hi from if");
                         InitialDisplay(parentPane);
                     }else{
                         atmcard.setAccountNumber(model.getAccountNumber(atmcard));

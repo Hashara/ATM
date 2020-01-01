@@ -21,6 +21,7 @@ public class card extends Application{
 
     private Pane panes[] =new Pane[2];
     private String cardNumber = "";
+    private String errorText = "" ;
     Button Button0 = new Button("0");
     Button Button1 = new Button("1");
     Button Button2 = new Button("2");
@@ -40,8 +41,6 @@ public class card extends Application{
 
     BorderPane bottomBorderPane = new BorderPane();
 
-    private Stage primaryStage = new Stage();
-
     public String getCardNumber() {
         return cardNumber;
     }
@@ -50,17 +49,17 @@ public class card extends Application{
         this.cardNumber = cardNumber;
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    public String getErrorText() {
+        return errorText;
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        setPrimaryStage(primaryStage);
+
         primaryStage.setTitle("");
         BorderPane pane = new BorderPane();
         addUIControls(pane);
@@ -356,9 +355,7 @@ public class card extends Application{
                         pinUi.BottomControllerKeys(parentPane,enter, cancel, clear);
                         pinUi. keyPadController(parentPane, Button0,  Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9);
                     }else{
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setContentText(result);
-                        a.show();
+                        setErrorText(result);
                         setCardNumber("");
                     }
                 }
@@ -370,11 +367,10 @@ public class card extends Application{
 
     public void InitialDisplay(BorderPane pane){
 
-        Alert a = new Alert(Alert.AlertType.ERROR);
 
         if (getCardNumber().length()>16){
-            a.setContentText("Invalid card length");
-            a.show();
+
+            setErrorText("Invalid Card Length");
             setCardNumber("");
         }
 
@@ -393,6 +389,8 @@ public class card extends Application{
         display.add(cardNumber,1,2,4,1);
 
 
+        Label ErrorLabel = new Label(getErrorText());
+        display.add(ErrorLabel,1,4,4,1);
 
 
     }

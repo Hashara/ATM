@@ -1,21 +1,15 @@
 package Controllers;
 
 import Models.atm_withdrawModel;
-import Models.debit_cardModel;
 import Objects.ATMCard;
 import Objects.Account;
 import Objects.WithdrawObject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Withdraw extends menu{
 
@@ -24,11 +18,20 @@ public class Withdraw extends menu{
     private String amount = "";
     private float FlaotAmount;
     private boolean f = true;
+    private String withdrawError = "";
 
     public Withdraw(BorderPane pane, ATMCard atmCard, Account account) {
         super(pane, atmCard);
         this.account = account;
         this.atmCard = atmCard;
+    }
+
+    public String getWithdrawError() {
+        return withdrawError;
+    }
+
+    public void setWithdrawError(String withdrawError) {
+        this.withdrawError = withdrawError;
     }
 
     public String getAmount() {
@@ -61,13 +64,17 @@ public class Withdraw extends menu{
             WithdrawLabel.setMinSize(360, 60);
             display.add(WithdrawLabel, 1, 1);
 
+            Label errorLabel = new Label(getWithdrawError());
+            errorLabel.setMinSize(360,60);
+            display.add(errorLabel,1,2);
+
             Label confirmLabel = new Label("Confirm");
             confirmLabel.setMinSize(360, 60);
-            display.add(confirmLabel, 1, 2);
+            display.add(confirmLabel, 1, 3);
 
             Label cancelLabel = new Label("Cancel");
             cancelLabel.setMinSize(360, 60);
-            display.add(cancelLabel, 2, 2);
+            display.add(cancelLabel, 2, 3);
         }else{
             Label successLabel = new Label("Transaction completed !");
             successLabel.setMinSize(360, 60);
@@ -77,9 +84,9 @@ public class Withdraw extends menu{
             confirmLabel.setMinSize(360, 60);
             display.add(confirmLabel, 1, 2);
 
-            Label cancelLabel = new Label("More");
-            cancelLabel.setMinSize(360, 60);
-            display.add(cancelLabel, 2, 2);
+            Label moreLabel = new Label("More");
+            moreLabel.setMinSize(360, 60);
+            display.add(moreLabel, 2, 2);
 //            f=true;
         }
 
@@ -227,10 +234,14 @@ public class Withdraw extends menu{
 
                     atm_withdrawModel model = new atm_withdrawModel();
                     String res = model.WithdrawMoney(wobj);
-                    System.out.println(res);
+//                    System.out.println(res);
 
+                    setWithdrawError(res);
                     setAmount("");
-                    f = false;
+
+                    if (res.equals("success")) {
+                        f = false;
+                    }
                     InitialDisplay(parentPane);
                 }else {
 

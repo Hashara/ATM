@@ -33,6 +33,14 @@ public class Balance extends menu {
         Label WithdrawLabel = new Label(account.getBalance());
         WithdrawLabel.setMinSize(360,60);
         display.add(WithdrawLabel,1,1);
+
+        Label exitLabel = new Label("EXIT");
+        exitLabel.setMinSize(360, 60);
+        display.add(exitLabel, 1, 3);
+
+        Label moreLabel = new Label("MORE");
+        moreLabel.setMinSize(360, 60);
+        display.add(moreLabel, 2, 3);
     }
 
     @Override
@@ -66,7 +74,14 @@ public class Balance extends menu {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("left");
-
+                /*exit*/
+                /*go to first page*/
+                card c = new card();
+                c.addUIControls(parentPane);
+                c.InitialDisplay(parentPane);
+                c.BottomPane(parentPane);
+                c.LeftSidePane(parentPane);
+                c.RightSidePane(parentPane);
 
 
             }
@@ -79,6 +94,11 @@ public class Balance extends menu {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("right");
+                menu Menu = new menu(parentPane, atmCard);
+                Menu.InitialDisplay(parentPane);
+                Menu.LeftSidePane(parentPane);
+                Menu.RightSidePane(parentPane);
+
             }
         });
     }

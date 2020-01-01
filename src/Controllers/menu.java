@@ -87,11 +87,6 @@ public class menu extends pin {
     }
 
 
-//    @Override
-//    public void BottomController(BorderPane pane, BorderPane parentPane) {
-//        super.BottomController(pane, parentPane);
-//    }
-
 
     @Override
     public void RightSideButtonController(BorderPane parentPane, Button rightButton) {
