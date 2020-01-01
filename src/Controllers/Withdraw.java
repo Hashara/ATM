@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class Withdraw extends menu{
     public ATMCard atmCard;
     private String amount = "";
     private float FlaotAmount;
+    private boolean f = true;
 
     public Withdraw(BorderPane pane, ATMCard atmCard, Account account) {
         super(pane, atmCard);
@@ -50,24 +52,36 @@ public class Withdraw extends menu{
         GridPane display = new GridPane();
         pane.setCenter(display);
 
-        Label balanceLabel = new Label("Enter the withdrawal amount");
-        balanceLabel.setMinSize(360,60);
-        display.add(balanceLabel,1,0);
+        if (f) {
+            Label balanceLabel = new Label("Enter the withdrawal amount");
+            balanceLabel.setMinSize(360,60);
+            display.add(balanceLabel,1,0);
 
+            Label WithdrawLabel = new Label("RS " + getAmount() + ".00");
+            WithdrawLabel.setMinSize(360, 60);
+            display.add(WithdrawLabel, 1, 1);
 
+            Label confirmLabel = new Label("Confirm");
+            confirmLabel.setMinSize(360, 60);
+            display.add(confirmLabel, 1, 2);
 
-        Label WithdrawLabel = new Label("RS " + getAmount()+".00");
-        WithdrawLabel.setMinSize(360,60);
-        display.add(WithdrawLabel,1,1);
+            Label cancelLabel = new Label("Cancel");
+            cancelLabel.setMinSize(360, 60);
+            display.add(cancelLabel, 2, 2);
+        }else{
+            Label successLabel = new Label("Transaction completed !");
+            successLabel.setMinSize(360, 60);
+            display.add(successLabel,1,1);
 
-        Label confirmLabel =  new Label("Confirm");
-        confirmLabel.setMinSize(360,60);
-        display.add(confirmLabel,1,2);
+            Label confirmLabel = new Label("Exit");
+            confirmLabel.setMinSize(360, 60);
+            display.add(confirmLabel, 1, 2);
 
-        Label cancelLabel = new Label("Cancel");
-        cancelLabel.setMinSize(360,60);
-        display.add(cancelLabel,2,2);
-
+            Label cancelLabel = new Label("More");
+            cancelLabel.setMinSize(360, 60);
+            display.add(cancelLabel, 2, 2);
+//            f=true;
+        }
 
     }
 
@@ -206,8 +220,21 @@ public class Withdraw extends menu{
         enter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if(f) {
+                    WithdrawObject wobj = new WithdrawObject();
+                    wobj.setCardNumber(atmCard.getCardNumber());
+                    wobj.setAmount(amount);
 
+                    atm_withdrawModel model = new atm_withdrawModel();
+                    String res = model.WithdrawMoney(wobj);
+                    System.out.println(res);
 
+                    setAmount("");
+                    f = false;
+                    InitialDisplay(parentPane);
+                }else {
+
+                }
             }
         });
 
@@ -244,16 +271,33 @@ public class Withdraw extends menu{
         leftButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("left");
+//                System.out.println("left");
 
-                WithdrawObject wobj = new WithdrawObject();
-                wobj.setCardNumber(atmCard.getCardNumber());
-                wobj.setAmount(amount);
 
-                atm_withdrawModel model = new atm_withdrawModel();
-                String res = model.WithdrawMoney(wobj);
-                System.out.println(res);
+                if (f) {
+                    WithdrawObject wobj = new WithdrawObject();
+                    wobj.setCardNumber(atmCard.getCardNumber());
+                    wobj.setAmount(amount);
 
+                    atm_withdrawModel model = new atm_withdrawModel();
+                    String res = model.WithdrawMoney(wobj);
+                    System.out.println(res);
+
+                    setAmount("");
+                    f = false;
+                    InitialDisplay(parentPane);
+                }else{
+
+
+                    /*go to first page*/
+                    card c = new card();
+                    c.addUIControls(parentPane);
+                    c.InitialDisplay(parentPane);
+                    c.BottomPane(parentPane);
+                    c.LeftSidePane(parentPane);
+                    c.RightSidePane(parentPane);
+
+                }
             }
         });
     }

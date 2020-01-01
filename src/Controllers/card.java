@@ -40,6 +40,8 @@ public class card extends Application{
 
     BorderPane bottomBorderPane = new BorderPane();
 
+    private Stage primaryStage = new Stage();
+
     public String getCardNumber() {
         return cardNumber;
     }
@@ -48,10 +50,18 @@ public class card extends Application{
         this.cardNumber = cardNumber;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        setPrimaryStage(primaryStage);
         primaryStage.setTitle("");
-
         BorderPane pane = new BorderPane();
         addUIControls(pane);
         InitialDisplay(pane);
@@ -71,7 +81,7 @@ public class card extends Application{
         primaryStage.show();
     }
 
-    private void addUIControls(BorderPane pane){
+    public void addUIControls(BorderPane pane){
 
         //Top pane
         HBox topAnchorPane = new HBox();

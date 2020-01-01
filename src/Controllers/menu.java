@@ -300,7 +300,6 @@ public class menu extends pin {
         cancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
             }
         });
 

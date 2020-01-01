@@ -25,9 +25,11 @@ public class atm_withdrawModel {
 
 //            System.out.println(stmt);
 
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
-                result = rs.getString(1);
+            if (withdrawObject.getAmount().isEmpty()==false) {
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    result = rs.getString(1);
+                }
             }
         }catch (SQLException e){
             e.printStackTrace();
