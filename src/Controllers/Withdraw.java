@@ -35,10 +35,12 @@ public class Withdraw extends menu{
 
     public void setAmount(String amount) {
         this.amount = amount;
-        FlaotAmount = Float.parseFloat(getAmount());
-        if (FlaotAmount>50000){
-            this.amount = "";
-            FlaotAmount = 0;
+        if (amount.isEmpty()==false) {
+            FlaotAmount = Float.parseFloat(getAmount());
+            if (FlaotAmount > 50000) {
+                this.amount = "";
+                FlaotAmount = 0;
+            }
         }
 //        System.out.println(FlaotAmount);
     }
@@ -186,13 +188,18 @@ public class Withdraw extends menu{
             @Override
             public void handle(ActionEvent event) {
 
+                menu Menu = new menu(parentPane, atmCard);
+                Menu.InitialDisplay(parentPane);
+                Menu.LeftSidePane(parentPane);
+                Menu.RightSidePane(parentPane);
             }
         });
 
         clear.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                setAmount("");
+                InitialDisplay(parentPane);
             }
         });
 
@@ -234,14 +241,10 @@ public class Withdraw extends menu{
     @Override
     public void LeftSideButtonController(BorderPane parentPane,Button leftButton){
 
-    }
-
-    @Override
-    public void RightSideButtonController(BorderPane parentPane,Button rightButton){
-        rightButton.setOnAction(new EventHandler<ActionEvent>() {
+        leftButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                System.out.println("right");
+                System.out.println("left");
 
                 WithdrawObject wobj = new WithdrawObject();
                 wobj.setCardNumber(atmCard.getCardNumber());
@@ -250,6 +253,20 @@ public class Withdraw extends menu{
                 atm_withdrawModel model = new atm_withdrawModel();
                 String res = model.WithdrawMoney(wobj);
                 System.out.println(res);
+
+            }
+        });
+    }
+
+    @Override
+    public void RightSideButtonController(BorderPane parentPane,Button rightButton){
+        rightButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                menu Menu = new menu(parentPane, atmCard);
+                Menu.InitialDisplay(parentPane);
+                Menu.LeftSidePane(parentPane);
+                Menu.RightSidePane(parentPane);
 
             }
         });
