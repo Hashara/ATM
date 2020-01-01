@@ -5,7 +5,6 @@ import Objects.ATMCard;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,6 +13,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import javax.smartcardio.Card;
+import java.util.ArrayList;
 
 public class card extends Application{
 
@@ -35,6 +37,8 @@ public class card extends Application{
 
     ATMCard atmcard = new ATMCard();
     debit_cardModel model = new debit_cardModel();
+
+    BorderPane bottomBorderPane = new BorderPane();
 
     public String getCardNumber() {
         return cardNumber;
@@ -85,10 +89,7 @@ public class card extends Application{
 
     }
 
-    private void BottomPane(BorderPane pane){
-
-
-        BorderPane bottomBorderPane = new BorderPane();
+    public void BottomPane(BorderPane pane){
         BottomKeyPad(bottomBorderPane,pane);
 
         BottomController(bottomBorderPane,pane);
@@ -96,12 +97,9 @@ public class card extends Application{
 
         panes[1] = bottomBorderPane;
 
-
-
-
     }
 
-    private void BottomKeyPad(BorderPane pane,BorderPane parentPane){
+    public void BottomKeyPad(BorderPane pane,BorderPane parentPane){
         GridPane bottomKeyPad = new GridPane();
         pane.setLeft(bottomKeyPad);
         //Key Pad
@@ -254,7 +252,7 @@ public class card extends Application{
         });
     }
 
-    private void BottomController(BorderPane pane,BorderPane parentPane){
+    public void BottomController(BorderPane pane,BorderPane parentPane){
         GridPane bottomController = new GridPane();
         pane.setRight(bottomController);
 
@@ -279,6 +277,37 @@ public class card extends Application{
         bottomController.add(clear,4,3);
 
         BottomControllerKeys(parentPane,enter, cancel, clear);
+    }
+
+
+    public ArrayList<Button> BottomControllerReturn(BorderPane pane, BorderPane parentPane){
+        GridPane bottomController = new GridPane();
+        pane.setRight(bottomController);
+        ArrayList<Button> bottomButtons = new ArrayList<Button>();
+        /*cancel clear enter*/
+
+        //Enter button
+        Button enter = new Button("ENTER");
+        enter.setDefaultButton(true);
+        enter.setPrefSize(180,60);
+        bottomController.add(enter,4,1);
+        bottomButtons.add(enter);
+
+        //cancel button
+        Button cancel = new Button("CANCEL");
+        cancel.setDefaultButton(true);
+        cancel.setPrefSize(180,60);
+        bottomController.add(cancel,4,2);
+        bottomButtons.add(cancel);
+
+        //clear button
+        Button clear = new Button("CLEAR");
+        clear.setDefaultButton(true);
+        clear.setPrefSize(180,60);
+        bottomController.add(clear,4,3);
+        bottomButtons.add(clear);
+
+        return bottomButtons;
     }
 
 
@@ -387,5 +416,77 @@ public class card extends Application{
 
     public void RightSideButtonController(BorderPane parentPane,Button rightButton){
 
+    }
+
+    public void disableKeyPad(Button Button0, Button Button1,Button Button2,Button Button3,Button Button4,Button Button5,Button Button6,Button Button7,Button Button8,Button Button9){
+        Button0.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button5.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button8.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
+
+        Button9.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("disabled");
+            }
+        });
     }
 }

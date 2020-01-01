@@ -1,23 +1,37 @@
 package Controllers;
 
+import Models.debit_cardModel;
 import Objects.ATMCard;
 import Objects.Account;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 
-public class Balance extends menu {
+import java.util.ArrayList;
+
+public class Withdraw extends menu{
 
     private Account account;
     public ATMCard atmCard;
+    private String amount = "";
 
-    public Balance(BorderPane pane, ATMCard atmCard, Account account) {
+    public Withdraw(BorderPane pane, ATMCard atmCard, Account account) {
         super(pane, atmCard);
         this.account = account;
         this.atmCard = atmCard;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -25,96 +39,25 @@ public class Balance extends menu {
         GridPane display = new GridPane();
         pane.setCenter(display);
 
-        Label balanceLabel = new Label("Your balance is");
+        Label balanceLabel = new Label("Enter the withdrawal amount");
         balanceLabel.setMinSize(360,60);
         display.add(balanceLabel,1,0);
 
 
-        Label WithdrawLabel = new Label(account.getBalance());
+
+        Label WithdrawLabel = new Label("RS" + getAmount());
         WithdrawLabel.setMinSize(360,60);
         display.add(WithdrawLabel,1,1);
-    }
 
-    @Override
-    public void LeftSidePane(BorderPane pane) {
-        GridPane g = new GridPane();
-        pane.setLeft(g);
+        Label confirmLabel =  new Label("Confirm");
+        confirmLabel.setMinSize(360,60);
+        display.add(confirmLabel,1,2);
 
-        leftButton.setDefaultButton(true);
-        leftButton.setPrefSize(180,60);
-        g.add(leftButton,1,10);
-
-        LeftSideButtonController( pane, leftButton);
-    }
-
-    @Override
-    public void RightSidePane(BorderPane pane) {
-        GridPane g1 = new GridPane();
-        pane.setRight(g1);
-
-        rightButton.setDefaultButton(true);
-        rightButton.setPrefSize(180,60);
-        g1.add(rightButton,1,10);
-
-        RightSideButtonController( pane, rightButton);
-    }
-
-    @Override
-    public void LeftSideButtonController(BorderPane parentPane, Button leftButton) {
-
-        leftButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("left");
+        Label cancelLabel = new Label("Cancel");
+        cancelLabel.setMinSize(360,60);
+        display.add(cancelLabel,2,2);
 
 
-
-            }
-        });
-    }
-
-    @Override
-    public void RightSideButtonController(BorderPane parentPane, Button rightButton) {
-        rightButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("right");
-            }
-        });
-    }
-
-    @Override
-    public void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear) {
-        cancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                System.out.println("balance cancel");
-                menu Menu = new menu(parentPane,atmCard);
-                Menu.InitialDisplay(parentPane);
-                Menu.LeftSidePane(parentPane);
-                Menu.RightSidePane(parentPane);
-            }
-        });
-
-        clear.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("clear balance");
-            }
-        });
-
-        enter.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                System.out.println("enter balance");
-                menu Menu = new menu(parentPane, atmCard);
-                Menu.InitialDisplay(parentPane);
-                Menu.LeftSidePane(parentPane);
-                Menu.RightSidePane(parentPane);
-            }
-        });
     }
 
     @Override
@@ -201,79 +144,6 @@ public class Balance extends menu {
     }
 
     @Override
-    public void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2,Button Button3, Button Button4, Button Button5,Button Button6, Button Button7, Button Button8,Button Button9){
-        Button0.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button4.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button5.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button6.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button7.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button8.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        Button9.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-    }
-
-    @Override
     public void BottomController(BorderPane pane,BorderPane parentPane){
         GridPane bottomController = new GridPane();
         pane.setRight(bottomController);
@@ -299,6 +169,149 @@ public class Balance extends menu {
         bottomController.add(clear,4,3);
 
         BottomControllerKeys(parentPane,enter, cancel, clear);
+    }
+
+    @Override
+    public void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear){
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        clear.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        enter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+
+            }
+        });
+
+    }
+
+    @Override
+    public void LeftSidePane(BorderPane pane){
+
+        GridPane g = new GridPane();
+        pane.setLeft(g);
+
+        leftButton.setDefaultButton(true);
+        leftButton.setPrefSize(180,60);
+        g.add(leftButton,1,10);
+
+        LeftSideButtonController( pane, leftButton);
+    }
+
+    @Override
+    public void RightSidePane(BorderPane pane){
+        GridPane g1 = new GridPane();
+        pane.setRight(g1);
+
+        rightButton.setDefaultButton(true);
+        rightButton.setPrefSize(180,60);
+        g1.add(rightButton,1,10);
+
+        RightSideButtonController( pane, rightButton);
+    }
+
+    @Override
+    public void LeftSideButtonController(BorderPane parentPane,Button leftButton){
+
+    }
+
+    @Override
+    public void RightSideButtonController(BorderPane parentPane,Button rightButton){
+
+    }
+    @Override
+    public void keyPadController(BorderPane parentPane, Button Button0, Button Button1, Button Button2, Button Button3, Button Button4, Button Button5, Button Button6, Button Button7, Button Button8, Button Button9) {
+        Button0.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"0");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"1");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"2");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"3");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"4");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button5.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"5");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"6");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"7");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button8.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"8");
+                InitialDisplay(parentPane);
+            }
+        });
+
+        Button9.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setAmount(getAmount()+"9");
+                InitialDisplay(parentPane);
+            }
+        });
     }
 
 
