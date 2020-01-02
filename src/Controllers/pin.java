@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class pin extends card {
 
@@ -157,15 +159,18 @@ public class pin extends card {
 
         display.add(displayLeft,0,0);
         display.add(displayRight,2,0);
-        
+
         //label
         Label headText = new Label("Enter the pin number");
+        headText.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         display.add(headText,1,0,4,1);
 
         Label starText = new Label(getStars());
+        starText.setFont(Font.font("Cambria", FontWeight.BOLD, 25));
         display.add(starText,1,2,4,1);
 
         Label errorLabel = new Label(getPinErrorText());
+        errorLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         display.add(errorLabel,1,4,4,1);
 
 

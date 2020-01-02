@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Withdraw extends menu{
 
@@ -61,11 +63,13 @@ public class Withdraw extends menu{
         display.add(displayRight,2,0);
 
         if (f) {
-            Label balanceLabel = new Label("Enter the withdrawal amount");
+            Label balanceLabel = new Label("Enter the amount");
+            balanceLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             balanceLabel.setMinSize(360,60);
             display.add(balanceLabel,1,0);
 
             Label WithdrawLabel = new Label("RS " + getAmount() + ".00");
+            WithdrawLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 25));
             WithdrawLabel.setMinSize(360, 60);
             display.add(WithdrawLabel, 1, 1);
 
@@ -74,24 +78,32 @@ public class Withdraw extends menu{
             display.add(errorLabel,1,2);
 
             Label confirmLabel = new Label("Confirm");
+            confirmLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             confirmLabel.setMinSize(360, 60);
             display.add(confirmLabel, 1, 3);
 
             Label cancelLabel = new Label("Cancel");
+            cancelLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             cancelLabel.setMinSize(360, 60);
             display.add(cancelLabel, 2, 3);
         }else{
             Label successLabel = new Label("Transaction completed !");
+            successLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             successLabel.setMinSize(360, 60);
             display.add(successLabel,1,1);
 
+            Rectangle r =new Rectangle(0,0,0,60);
+            display.add(r,1,2);
+
             Label confirmLabel = new Label("Exit");
+            confirmLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             confirmLabel.setMinSize(360, 60);
-            display.add(confirmLabel, 1, 2);
+            display.add(confirmLabel, 1, 3);
 
             Label moreLabel = new Label("More");
+            moreLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
             moreLabel.setMinSize(360, 60);
-            display.add(moreLabel, 2, 2);
+            display.add(moreLabel, 2, 3);
 //            f=true;
         }
 
@@ -267,9 +279,10 @@ public class Withdraw extends menu{
         GridPane g = new GridPane();
         pane.setLeft(g);
 
+        g.add(heightLeft,0,0);
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g.add(leftButton,1,10);
+        g.add(leftButton,0,1);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -279,9 +292,10 @@ public class Withdraw extends menu{
         GridPane g1 = new GridPane();
         pane.setRight(g1);
 
+        g1.add(heightRight,0,0);
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g1.add(rightButton,1,10);
+        g1.add(rightButton,0,1);
 
         RightSideButtonController( pane, rightButton);
     }

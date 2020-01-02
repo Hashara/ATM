@@ -6,6 +6,7 @@ import Objects.ATMCard;
 import Objects.Account;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
@@ -35,17 +38,23 @@ public class menu extends pin {
         GridPane display = new GridPane();
         pane.setCenter(display);
 
-        display.add(displayLeft,0,0);
+        Rectangle displayLeftSp = new Rectangle(0, 0, (SCREEN_WIDTH-SIDE_KEY_WIDTH*2 -KEYPAD_BUTTON_SIZE*3 -KEY_WIDTH-160)/2, 120);
+        displayLeftSp.setFill(Color.TRANSPARENT);
+        display.add(displayLeftSp,0,0);
         display.add(displayRight,2,0);
+//        display.add(heightLeft,0,0);
 
         Label balanceLabel = new Label("Check Balance");
+        balanceLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         balanceLabel.setMinSize(360,60);
-        display.add(balanceLabel,1,0);
+        display.add(balanceLabel,1,1);
 
 
         Label WithdrawLabel = new Label("Cash withdrawal");
+        WithdrawLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         WithdrawLabel.setMinSize(360,60);
-        display.add(WithdrawLabel,2,0);
+        WithdrawLabel.setAlignment(Pos.CENTER_LEFT);
+        display.add(WithdrawLabel,2,1);
     }
 
     @Override
@@ -54,9 +63,10 @@ public class menu extends pin {
         GridPane g = new GridPane();
         pane.setLeft(g);
 
+        g.add(heightLeft,0,0);
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g.add(leftButton,1,10);
+        g.add(leftButton,0,1);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -66,9 +76,10 @@ public class menu extends pin {
         GridPane g1 = new GridPane();
         pane.setRight(g1);
 
+        g1.add(heightRight,0,0);
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g1.add(rightButton,1,10);
+        g1.add(rightButton,0,1);
 
         RightSideButtonController( pane, rightButton);
     }

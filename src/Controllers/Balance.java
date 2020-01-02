@@ -4,12 +4,15 @@ import Objects.ATMCard;
 import Objects.Account;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Balance extends menu {
 
@@ -31,19 +34,24 @@ public class Balance extends menu {
         display.add(displayRight,2,0);
 
         Label balanceLabel = new Label("Your balance is");
+        balanceLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         balanceLabel.setMinSize(360,60);
         display.add(balanceLabel,1,0);
 
 
         Label WithdrawLabel = new Label(account.getBalance());
+        WithdrawLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 25));
         WithdrawLabel.setMinSize(360,60);
         display.add(WithdrawLabel,1,1);
 
         Label exitLabel = new Label("EXIT");
+        exitLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
         exitLabel.setMinSize(360, 60);
         display.add(exitLabel, 1, 3);
 
         Label moreLabel = new Label("MORE");
+        moreLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
+        moreLabel.setAlignment(Pos.CENTER_LEFT);
         moreLabel.setMinSize(360, 60);
         display.add(moreLabel, 2, 3);
     }
@@ -53,9 +61,10 @@ public class Balance extends menu {
         GridPane g = new GridPane();
         pane.setLeft(g);
 
+        g.add(heightLeft,0,0);
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g.add(leftButton,1,10);
+        g.add(leftButton,0,1);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -65,9 +74,10 @@ public class Balance extends menu {
         GridPane g1 = new GridPane();
         pane.setRight(g1);
 
+        g1.add(heightRight,0,0);
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g1.add(rightButton,1,10);
+        g1.add(rightButton,0,1);
 
         RightSideButtonController( pane, rightButton);
     }

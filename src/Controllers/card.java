@@ -5,6 +5,7 @@ import Objects.ATMCard;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -56,6 +57,8 @@ public class card extends Application{
     Rectangle displayLeft = new Rectangle(0, 0, (SCREEN_WIDTH-SIDE_KEY_WIDTH*2 -KEYPAD_BUTTON_SIZE*3 -KEY_WIDTH-160)/2, 0);
     Rectangle displayRight = new Rectangle(0, 0, (SCREEN_WIDTH-SIDE_KEY_WIDTH*2 -KEYPAD_BUTTON_SIZE*3 -KEY_WIDTH-160)/2, 0);
 
+    Rectangle heightLeft = new Rectangle(0,0,0,120);
+    Rectangle heightRight = new Rectangle(0,0,0,120);
     public String getCardNumber() {
         return cardNumber;
     }
@@ -375,15 +378,21 @@ public class card extends Application{
 
         display.add(displayLeft,0,0);
         display.add(displayRight,2,0);
+
         //label
         Label headText = new Label("Enter the card number");
+        headText.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
+        headText.setMinSize(360,60);
         display.add(headText,1,0,4,1);
 
         Label cardNumber = new Label(getCardNumber());
+        cardNumber.setMinSize(360,60);
         display.add(cardNumber,1,2,4,1);
 
 
         Label ErrorLabel = new Label(getErrorText());
+        ErrorLabel.setFont(Font.font("Cambria", FontWeight.BOLD, 30));
+        ErrorLabel.setMinSize(360,60);
         display.add(ErrorLabel,1,4,4,1);
 
     }
@@ -393,9 +402,10 @@ public class card extends Application{
         GridPane g = new GridPane();
         pane.setLeft(g);
 
+        g.add(heightLeft,0,0);
         leftButton.setDefaultButton(true);
         leftButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g.add(leftButton,1,10);
+        g.add(leftButton,0,1);
 
         LeftSideButtonController( pane, leftButton);
     }
@@ -404,9 +414,10 @@ public class card extends Application{
         GridPane g1 = new GridPane();
         pane.setRight(g1);
 
+        g1.add(heightRight,0,0);
         rightButton.setDefaultButton(true);
         rightButton.setPrefSize(SIDE_KEY_WIDTH,KEYPAD_BUTTON_SIZE);
-        g1.add(rightButton,1,10);
+        g1.add(rightButton,0,1);
 
         RightSideButtonController( pane, rightButton);
     }
