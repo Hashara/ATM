@@ -57,6 +57,9 @@ public class Withdraw extends menu{
         GridPane display = new GridPane();
         pane.setCenter(display);
 
+        display.add(displayLeft,0,0);
+        display.add(displayRight,2,0);
+
         if (f) {
             Label balanceLabel = new Label("Enter the withdrawal amount");
             balanceLabel.setMinSize(360,60);

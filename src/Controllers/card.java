@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class card extends Application{
 
-//    private Pane panes[] =new Pane[2];
     private String cardNumber = "";
     private String errorText = "" ;
     Button Button0 = new Button("0");
@@ -47,13 +46,15 @@ public class card extends Application{
     int KEYPAD_BUTTON_SIZE = 80;
     int KEY_WIDTH =200;
     int SIDE_KEY_WIDTH = 300;
-    double BOTTOM_FILLER = screenBounds.getWidth() - KEYPAD_BUTTON_SIZE*3 - KEY_WIDTH;
+    double SCREEN_WIDTH = screenBounds.getWidth();
+    double BOTTOM_FILLER = SCREEN_WIDTH - KEYPAD_BUTTON_SIZE*3 - KEY_WIDTH;
     double SCREEN_HEIGHT = screenBounds.getHeight();
 
     Rectangle rectLeft = new Rectangle(0, 0, BOTTOM_FILLER/2, KEYPAD_BUTTON_SIZE*4);
     Rectangle rectRight = new Rectangle(0, 0, BOTTOM_FILLER/2, KEYPAD_BUTTON_SIZE*4);
 
-//    Rectangle rectUpperLeft = new Rectangle(0,0,KEY_WIDTH,)
+    Rectangle displayLeft = new Rectangle(0, 0, (SCREEN_WIDTH-SIDE_KEY_WIDTH*2 -KEYPAD_BUTTON_SIZE*3 -KEY_WIDTH-160)/2, 0);
+    Rectangle displayRight = new Rectangle(0, 0, (SCREEN_WIDTH-SIDE_KEY_WIDTH*2 -KEYPAD_BUTTON_SIZE*3 -KEY_WIDTH-160)/2, 0);
 
     public String getCardNumber() {
         return cardNumber;
@@ -74,7 +75,7 @@ public class card extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        System.out.println(SCREEN_HEIGHT);
+        System.out.println(SCREEN_WIDTH);
         primaryStage.setTitle("");
         BorderPane pane = new BorderPane();
         addUIControls(pane);
@@ -311,33 +312,6 @@ public class card extends Application{
         BottomControllerKeys(parentPane,enter, cancel, clear);
     }
 
-    //    public void BottomController(BorderPane pane,BorderPane parentPane){
-//        GridPane bottomController = new GridPane();
-//        pane.setRight(bottomController);
-//
-//        /*cancel clear enter*/
-//
-//        //Enter button
-//        Button enter = new Button("ENTER");
-//        enter.setDefaultButton(true);
-//        enter.setPrefSize(180,60);
-//        bottomController.add(enter,4,1);
-//
-//        //cancel button
-//        Button cancel = new Button("CANCEL");
-//        cancel.setDefaultButton(true);
-//        cancel.setPrefSize(180,60);
-//        bottomController.add(cancel,4,2);
-//
-//        //clear button
-//        Button clear = new Button("CLEAR");
-//        clear.setDefaultButton(true);
-//        clear.setPrefSize(180,60);
-//        bottomController.add(clear,4,3);
-//
-//        BottomControllerKeys(parentPane,enter, cancel, clear);
-//    }
-//
     public void BottomControllerKeys(BorderPane parentPane, Button enter, Button cancel, Button clear){
         cancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -365,8 +339,8 @@ public class card extends Application{
 
                     debit_cardModel model = new debit_cardModel();
                     String result = model.IsCardNumberValid(atmcard);
-                    System.out.println(result);
-                    System.out.println(result =="success !");
+//                    System.out.println(result);
+//                    System.out.println(result =="success !");
                     if ( result.equals("success !")){
                         pin pinUi = new pin(parentPane, atmcard);
                         pinUi.InitialDisplay(parentPane);
@@ -399,6 +373,8 @@ public class card extends Application{
         display.setVgap(8);
         display.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
+        display.add(displayLeft,0,0);
+        display.add(displayRight,2,0);
         //label
         Label headText = new Label("Enter the card number");
         display.add(headText,1,0,4,1);

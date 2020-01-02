@@ -155,6 +155,9 @@ public class pin extends card {
         display.setVgap(8);
         display.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
+        display.add(displayLeft,0,0);
+        display.add(displayRight,2,0);
+        
         //label
         Label headText = new Label("Enter the pin number");
         display.add(headText,1,0,4,1);

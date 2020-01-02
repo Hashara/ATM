@@ -27,6 +27,9 @@ public class Balance extends menu {
         GridPane display = new GridPane();
         pane.setCenter(display);
 
+        display.add(displayLeft,0,0);
+        display.add(displayRight,2,0);
+
         Label balanceLabel = new Label("Your balance is");
         balanceLabel.setMinSize(360,60);
         display.add(balanceLabel,1,0);

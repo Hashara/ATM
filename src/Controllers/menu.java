@@ -35,6 +35,8 @@ public class menu extends pin {
         GridPane display = new GridPane();
         pane.setCenter(display);
 
+        display.add(displayLeft,0,0);
+        display.add(displayRight,2,0);
 
         Label balanceLabel = new Label("Check Balance");
         balanceLabel.setMinSize(360,60);
